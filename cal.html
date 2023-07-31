@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Solar Energy Calculator</title>
+    <style>
+        body {
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+  font-family: "Roboto";
+  list-style: none;
+  box-sizing: border-box;
+}
+.boo {
+  height: 100vh;
+  overflow: hidden;
+  background-image: url(/images/back.jpg);
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+        .calculator {
+            margin: 50px auto;
+            padding: 20px;
+            width: 400px;
+            background-color: #f1f1f1;
+            border-radius: 10px;
+            text-align: center;
+            z-index: 100;
+        }
+
+        h2 {
+            margin-top: 0;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        input,
+        select {
+            padding: 5px;
+            margin-bottom: 10px;
+            width: 100%;
+            border-radius: 5px;
+            border: none;
+        }
+
+        button {
+            padding: 10px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #3e8e41;
+        }
+        nav {
+  position: static;
+  z-index: 100;
+  height: 8vh;
+  width: 96%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 30px;
+  background-color: black;
+}
+
+.logo {
+  color: #fff;
+  font-weight: 600;
+  font-size: 16px;
+  text-decoration: none;
+}
+.logo a{
+    text-decoration: none;
+    color: white;
+}
+
+nav .nav-links ul {
+  display: flex;
+  flex-direction: row;
+}
+
+nav ul li a{
+  text-decoration: none;
+  padding: 6px 15px;
+  color: white;
+  border-radius: 20px;
+}
+
+nav ul li a:hover{
+  background: white;
+  color: black;
+}
+    </style>
+</head>
+
+<body>
+    <nav>
+        <div class="logo"><a href="index.html">Explore.</a></div>
+        <div class="nav-links">
+          <ul>
+            <li><a href="">Calculator</a></li>
+            <li><a href="/about.html">About</a></li>
+          </ul>
+        </div>
+      </nav>
+    <br><br>
+    <section class="boo">
+        <div class="calculator" data-depth="1.2">
+            <h2>Solar Energy Calculator</h2>
+            <label>Enter the size of your solar panel (in watts):</label>
+            <input type="number" id="size">
+            <label>Enter the number of hours of sunlight per day:</label>
+            <input type="number" id="hours">
+            <label>Enter your monthly energy bill:</label>
+            <input type="number" id="bill">
+            <label>Enter your location:</label>
+            <select id="location">
+                <option value="1">New York</option>
+                <option value="2">Los Angeles</option>
+                <option value="3">Chicago</option>
+                <option value="4">Houston</option>
+                <option value="5">Miami</option>
+            </select>
+            <button onclick="calculate()">Calculate</button>
+            <div id="result"></div>
+        </div>
+    </section>
+
+    <script>
+        function calculate() {
+            let size = document.getElementById("size").value;
+            let hours = document.getElementById("hours").value;
+            let bill = document.getElementById("bill").value;
+            let location = document.getElementById("location").value;
+            let rate = 0;
+
+            if (size <= 0 || hours <= 0 || bill <= 0) {
+                alert("Please enter valid values.");
+                return;
+            }
+
+            switch (location) {
+                case "1":
+                    rate = 0.22;
+                    break;
+                case "2":
+                    rate = 0.18;
+                    break;
+                case "3":
+                    rate = 0.21;
+                    break;
+                case "4":
+                    rate = 0.16;
+                    break;
+                case "5":
+                    rate = 0.25;
+                    break;
+                default:
+                    alert("Please select a location.");
+                    return;
+            }
+
+            let energy = (size * hours).toFixed(2);
+            let savings = (bill * rate * 12).toFixed(2);
+            let message = "Your solar panel can absorb " + energy + " watt-hours of energy per day. You could save $" + savings + " per year with solar energy.";
+
+            document.getElementById("result").innerHTML = message;
+        }
+
+    </script>
+</body>
+
+</html>
